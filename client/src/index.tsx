@@ -1,22 +1,33 @@
 import React from "react";
-import ReactDOM, { render } from "react-dom";
+import { render } from "react-dom";
 import "./index.css";
-import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 import logo from "./logo.svg";
 import "./App.css";
 
+import { Provider } from "react-redux";
+import initStore from "./store/store";
+// import { Store } from "redux";
+
 // Components
 import Main from "./pages/Main/Main";
+import { Test } from "./pages/Test";
 // import ProviderWrapper from "./components/Provider/ProviderWrapper";
+
+const store = initStore();
 
 export const Root: React.FC = () => {
   return (
-    <React.StrictMode>
-      {/* <ProviderWrapper> */}
-      <Main />
-    </React.StrictMode>
+    <Provider store={store}>
+      <React.StrictMode>
+        {/* <ProviderWrapper> */}
+        <div>
+          <Test />
+          <Main />
+        </div>
+      </React.StrictMode>
+    </Provider>
     // </ProviderWrapper>
   );
 };
