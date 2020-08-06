@@ -2,33 +2,28 @@ import React from "react";
 import { render } from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
-
-import logo from "./logo.svg";
 import "./App.css";
 
-import { Provider } from "react-redux";
-import initStore from "./store/store";
-// import { Store } from "redux";
+import { Route, Switch } from "react-router";
+import { Backdrop } from "./components/BackdropProvider/Backdrop";
 
 // Components
 import Main from "./pages/Main/Main";
 import { Test } from "./pages/Test";
-// import ProviderWrapper from "./components/Provider/ProviderWrapper";
+import { ProviderWrapper } from "./components/Provider/ProviderWrapper";
+import initStore from "./store/store";
 
 const store = initStore();
 
 export const Root: React.FC = () => {
   return (
-    <Provider store={store}>
-      <React.StrictMode>
-        {/* <ProviderWrapper> */}
-        <div>
-          <Test />
-          <Main />
-        </div>
-      </React.StrictMode>
-    </Provider>
-    // </ProviderWrapper>
+    <ProviderWrapper store={store}>
+      <Backdrop />
+      <Switch>
+        <Route exact={true} path="/main" component={Main} />
+        <Route exact={true} path="/" component={Test} />
+      </Switch>
+    </ProviderWrapper>
   );
 };
 
